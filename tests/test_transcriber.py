@@ -31,6 +31,24 @@ def test_submit_for_recognition(audio_file_uri, monkeypatch):
        )
     assert got == {'result': 'OK'}
 
+def test_submit_for_recognition_raises(audio_file_uri, monkeypatch):
+    """
+    it raises `RecognizerException` on non 200 response code from
+    Google speech API`
+    """
+    import requests
+    def mock_post(uri, json, params):
+        return _MockResponse(status_code=400, json_content={'error': 'boom!'})
+
+    monkeypatch.setattr(requests, 'post', mock_post)
+
+    with pytest.raises(transcriber.RecognizerException):
+        got = transcriber.submit_for_recognition(
+                audio_file_uri,
+                api_key='hdtge'
+           )
+
+
 @pytest.fixture
 def audio_file_uri():
     return 'gs://bucketName/object_name'

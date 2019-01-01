@@ -4,6 +4,9 @@ import requests
 
 _LONG_RUNNING_RECOGNIZE_URI = 'https://speech.googleapis.com/v1/speech:longrunningrecognize'
 
+class RecognizerException(Exception):
+    pass
+
 def submit_for_recognition(audio_file_uri, api_key):
     response = requests.post(
             _LONG_RUNNING_RECOGNIZE_URI,
@@ -12,7 +15,7 @@ def submit_for_recognition(audio_file_uri, api_key):
     )
 
     if response.status_code != http.HTTPStatus.OK:
-        raise TranscriberException(resposne.json()['error'])
+        raise RecognizerException(response.json()['error'])
     return response.json()
 
 
