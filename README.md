@@ -3,7 +3,7 @@
 Specifically, the script exposes functionality to:
 
 1. Convert an MP3 file to a WAV file which could later be used for audio editing or for transcription.
-2. Upload a large audio file to `Google Cloud Store` for processing by the `Google Cloud Speec` service.
+2. Upload a large audio file to `Google Cloud Store` for processing by the `Google Cloud Speech` service.
 3. Check the status of a transcription operation.
 
 # Usage
